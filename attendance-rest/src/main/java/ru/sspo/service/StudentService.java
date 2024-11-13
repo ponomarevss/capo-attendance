@@ -48,5 +48,6 @@ public class StudentService {
         if (studentRepository.findById(id).isEmpty()) {
             throw new NoSuchElementException("Student with id = " + id + " does not exist.");
         }
+        studentRepository.deleteById(id);
     }
 }

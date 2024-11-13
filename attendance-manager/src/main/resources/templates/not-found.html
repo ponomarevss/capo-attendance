@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Not Found</title>
+  <style>
+    body {
+        display: flex;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .sidebar {
+        width: 200px;
+        background-color: #333;
+        color: white;
+        padding: 15px;
+        height: 100vh;
+        position: fixed;
+    }
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 10px 0;
+    }
+    .sidebar a:hover {
+        background-color: #575757;
+    }
+    .content {
+        margin-left: 220px;
+        padding: 20px;
+        width: 100%;
+    }
+    .button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>Menu</h2>
+  <a href="/groups" th:href="@{/groups}">Groups</a>
+  <a href="/students" th:href="@{/students}">Students</a>
+</div>
+<div class="content">
+  <h1>404 - Page Not Found</h1>
+  <p>Sorry, the page you are looking for does not exist.</p>
+  <a href="/students" th:href="@{/students}" class="button">Back to Students List</a>
+  <a href="/groups" th:href="@{/groups}" class="button">Back to Groups List</a>
+</div>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--  <title>Page Not Found</title>-->
+<!--  <style>-->
+<!--    body {-->
+<!--        display: flex;-->
+<!--        margin: 0;-->
+<!--        font-family: Arial, sans-serif;-->
+<!--    }-->
+<!--    .sidebar {-->
+<!--        width: 200px;-->
+<!--        background-color: #333;-->
+<!--        color: white;-->
+<!--        padding: 15px;-->
+<!--        height: 100vh;-->
+<!--        position: fixed;-->
+<!--    }-->
+<!--    .sidebar a {-->
+<!--        color: white;-->
+<!--        text-decoration: none;-->
+<!--        display: block;-->
+<!--        padding: 10px 0;-->
+<!--    }-->
+<!--    .sidebar a:hover {-->
+<!--        background-color: #575757;-->
+<!--    }-->
+<!--    .content {-->
+<!--        margin-left: 220px;-->
+<!--        padding: 20px;-->
+<!--        width: 100%;-->
+<!--    }-->
+<!--    table {-->
+<!--        width: 100%;-->
+<!--        border-collapse: collapse;-->
+<!--    }-->
+<!--    th, td {-->
+<!--        border: 1px solid #ddd;-->
+<!--        padding: 8px;-->
+<!--        text-align: left;-->
+<!--    }-->
+<!--    th {-->
+<!--        background-color: #f2f2f2;-->
+<!--    }-->
+<!--  </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="sidebar">-->
+<!--  <h2>Menu</h2>-->
+<!--  <a href="/groups" th:href="@{/groups}">Groups</a>-->
+<!--  <a href="/students" th:href="@{/students}">Students</a>-->
+<!--</div>-->
+<!--<div class="content">-->
+<!--  <h1>404 - Page Not Found</h1>-->
+<!--  <p>Sorry, the page you are looking for does not exist.</p>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->

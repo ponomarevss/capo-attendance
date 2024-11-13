@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            height: 100vh;
+            position: fixed;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button {
+            border: none;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .delete-button {
+            background-color: #dc3545; /* Красный цвет для кнопки удаления */
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h2>Menu</h2>
+    <a href="/groups" th:href="@{/groups}">Groups</a>
+    <a href="/students" th:href="@{/students}">Students</a>
+</div>
+<div class="content">
+    <h1>Edit Student</h1>
+    <form action="#" th:action="@{/students/update}" method="post" th:object="${student}">
+        <input type="hidden" th:field="*{id}" />
+        <table>
+            <tbody>
+            <tr>
+                <th>Firstname:</th>
+                <td><input type="text" th:field="*{firstname}" required /></td>
+            </tr>
+            <tr>
+                <th>Lastname:</th>
+                <td><input type="text" th:field="*{lastname}" required /></td>
+            </tr>
+            <tr>
+                <th>Birthday:</th>
+                <td>
+                    <input type="date" th:field="*{birthday}" required />
+                </td>
+            </tr>
+            <tr>
+                <th>Grade:</th>
+                <td><input type="text" th:field="*{grade}" /></td>
+            </tr>
+            <tr>
+                <th>Group Name:</th>
+                <td>
+                    <select th:field="*{groupId}">
+                        <option value="" selected>Not Selected</option>
+                        <option th:each="group : ${groups}"
+                                th:value="${group.id}"
+                                th:text="${group.name}"
+                                th:selected="${group.id == student.groupId}"></option>
+                    </select>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="button">Save</button>
+        <button type="button" class="button" th:onclick="'window.location.href=\'/students/' + ${student.id} + '\''">Cancel</button>
+    </form>
+
+    <form action="#" th:action="@{/students/delete/{id}(id=${student.id})}" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit" class="button delete-button">Delete</button>
+    </form>
+</div>
+</body>
+</html>

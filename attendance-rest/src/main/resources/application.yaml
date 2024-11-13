@@ -4,10 +4,11 @@ spring:
   application:
     name: attendance-rest
   datasource:
-    url: jdbc:h2:mem:test
+    url: jdbc:postgresql://localhost:5432/attendance-db
     username: root
     password: password
-    driver-class-name: org.h2.Driver
+    driver-class-name: org.postgresql.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     show-sql: false
+    hibernate:
+      ddl-auto: update

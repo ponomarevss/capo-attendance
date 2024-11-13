@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <style>
+        body {
+            display: flex;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .sidebar {
+            width: 200px;
+            background-color: #333;
+            color: white;
+            padding: 15px;
+            height: 100vh;
+            position: fixed;
+        }
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h2>Menu</h2>
+    <a href="/groups" th:href="@{/groups}">Groups</a>
+    <a href="/students" th:href="@{/students}">Students</a>
+</div>
+<div class="content">
+    <h1>Student Details</h1>
+    <table>
+        <tbody>
+        <tr>
+            <th>ID</th>
+            <td th:text="${student.id}"></td>
+        </tr>
+        <tr>
+            <th>Firstname</th>
+            <td th:text="${student.firstname}"></td>
+        </tr>
+        <tr>
+            <th>Lastname</th>
+            <td th:text="${student.lastname}"></td>
+        </tr>
+        <tr>
+            <th>Birthday</th>
+            <td th:text="${student.birthday}"></td>
+        </tr>
+        <tr>
+            <th>Grade</th>
+            <td th:text="${student.grade}"></td>
+        </tr>
+        <tr>
+            <th>Group Name</th>
+            <td th:text="${student.groupName}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/students/edit/{id}(id=${student.id})}" class="button">Edit</a>
+
+    <a href="/students" th:href="@{/students}" class="button">Back</a>
+</div>
+</body>
+</html>

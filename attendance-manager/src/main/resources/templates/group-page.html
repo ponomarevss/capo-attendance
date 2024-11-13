@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Group Details</title>
+  <style>
+    body {
+        display: flex;
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+    .sidebar {
+        width: 200px;
+        background-color: #333;
+        color: white;
+        padding: 15px;
+        height: 100vh;
+        position: fixed;
+    }
+    .sidebar a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        padding: 10px 0;
+    }
+    .sidebar a:hover {
+        background-color: #575757;
+    }
+    .content {
+        margin-left: 220px;
+        padding: 20px;
+        width: 100%;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .button:hover {
+        background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>Menu</h2>
+  <a href="/groups" th:href="@{/groups}">Groups</a>
+  <a href="/students" th:href="@{/students}">Students</a>
+</div>
+<div class="content">
+  <h1>Group Details</h1>
+  <table>
+    <tbody>
+    <tr>
+      <th>ID</th>
+      <td th:text="${group.id}"></td>
+    </tr>
+    <tr>
+      <th>Name</th>
+      <td th:text="${group.name}"></td>
+    </tr>
+    <tr>
+      <th>Address</th>
+      <td th:text="${group.address}"></td>
+    </tr>
+    <tr>
+      <th>Description</th>
+      <td th:text="${group.description}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <h2>Students in this Group</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Birthday</th>
+      <th>Grade</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student, iterStat : ${group.students}">
+      <td th:text="${iterStat.index + 1}"></td>
+      <td th:text="${student.firstname}"></td>
+      <td th:text="${student.lastname}"></td>
+      <td th:text="${student.birthday}"></td>
+      <td th:text="${student.grade}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <a href="/groups" th:href="@{/groups}" class="button">Back</a>
+  <a href="/groups/edit/{id}" th:href="@{/groups/edit/{id}(id=${group.id})}" class="button">Edit Group</a>
+</div>
+</body>
+</html>

@@ -1,6 +1,0 @@
-2024-11-05 16:10:42.506101+05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "STUDENT" not found (this database is empty); SQL statement:
-insert into student (birthday,firstname,grade,group_id,lastname,id) values (?,?,?,?,?,default) [42104-224]
-2024-11-05 16:11:07.678854+05:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "STUDENT" not found (this database is empty); SQL statement:
-insert into student (birthday,firstname,grade,group_id,lastname,id) values (?,?,?,?,?,default) [42104-224]
