@@ -9,6 +9,7 @@ import ru.sspo.client.StudentResponse;
 import ru.sspo.dto.GroupDto;
 import ru.sspo.dto.StudentDto;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +40,7 @@ public class GroupDtoService {
             if (groupResponse == null) {
                 return Optional.empty();
             }
-            List<StudentDto> studentDtoList = getStudentResponseList(groupResponse.getId())
+            List<StudentDto> studentDtoList = getStudentsForGroup(groupResponse.getId())
                     .stream()
                     .map(studentResponse -> StudentDto.fromResponse(studentResponse, groupResponse))
                     .sorted(Comparator.comparing(StudentDto::getLastname))
@@ -50,7 +51,7 @@ public class GroupDtoService {
         }
     }
 
-    private List<StudentResponse> getStudentResponseList(Long id) {
+    private List<StudentResponse> getStudentsForGroup(Long id) {
         return restClient.get()
                 .uri("groups/" + id + "/students")
                 .retrieve()

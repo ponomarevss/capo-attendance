@@ -151,7 +151,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="student : ${allStudents}">
+                <tr th:each="student : ${restStudents}">
                     <td th:text="${student.firstname}"></td>
                     <td th:text="${student.lastname}"></td>
                     <td th:text="${student.birthday}"></td>
@@ -202,7 +202,7 @@
 
     <form action="#" th:action="@{/groups/delete/{id}(id=${group.id})}" method="post" style="display:inline;">
         <input type="hidden" name="_method" value="delete"/>
-        <button type="submit" class="button delete-button">Delete</button>
+        <button type="submit" class="button delete-button" th:if="${isStudentListEmpty}">Delete</button>
     </form>
 </div>
 </body>

@@ -4,14 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.sspo.client.StudentResponse;
 import ru.sspo.dto.GroupDto;
 import ru.sspo.dto.StudentDto;
 import ru.sspo.service.GroupDtoService;
 import ru.sspo.service.StudentDtoService;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,15 +47,8 @@ public class GroupDtoController {
         List<StudentDto> allStudents = new ArrayList<>(studentDtoService.findAll());
         allStudents.removeAll(groupDto.getStudents());
         model.addAttribute("group", groupDto);
-        model.addAttribute("allStudents",
-                allStudents
-                        .stream()
-                        .sorted(
-                                Comparator.comparing(StudentDto::getGroupName, Comparator.nullsFirst(String::compareTo))
-                                        .thenComparing(StudentDto::getLastname)
-                        )
-                        .toList()
-        );
+        model.addAttribute("restStudents", allStudents);
+        model.addAttribute("isStudentListEmpty", groupDto.getStudents().isEmpty());
         return "edit-group.html";
     }
 
@@ -92,13 +83,7 @@ public class GroupDtoController {
             @RequestParam("groupId") Long groupId,
             Model model
     ) {
-        Optional<StudentDto> dtoOptional = studentDtoService.findById(studentId);
-        if (dtoOptional.isEmpty()) {
-            return "not-found.html";
-        }
-        StudentDto studentDto = dtoOptional.get();
-        studentDto.setGroupId(groupId);
-        studentDtoService.save(StudentDto.toResponse(studentDto));
+        studentDtoService.addStudentToGroup(studentId, groupId);
         showEditGroupForm(groupId, model);
         return "redirect:edit/" + groupId;
     }
@@ -109,13 +94,7 @@ public class GroupDtoController {
             @RequestParam("groupId") Long groupId,
             Model model
     ) {
-        Optional<StudentDto> dtoOptional = studentDtoService.findById(studentId);
-        if (dtoOptional.isEmpty()) {
-            return "not-found.html";
-        }
-        StudentDto studentDto = dtoOptional.get();
-        studentDto.setGroupId(null);
-        studentDtoService.save(StudentDto.toResponse(studentDto));
+        studentDtoService.removeStudentFromGroup(studentId);
         showEditGroupForm(groupId, model);
         return "redirect:edit/" + groupId;
     }

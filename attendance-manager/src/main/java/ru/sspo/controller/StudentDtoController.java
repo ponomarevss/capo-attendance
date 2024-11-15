@@ -9,8 +9,6 @@ import ru.sspo.dto.StudentDto;
 import ru.sspo.service.GroupDtoService;
 import ru.sspo.service.StudentDtoService;
 
-import java.time.format.DateTimeFormatter;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,20 +22,14 @@ public class StudentDtoController {
 
     @GetMapping
     public String getStudentsListPage(Model model) {
-        List<StudentDto> students = studentDtoService.findAll()
-                .stream()
-                .sorted(
-                        Comparator.comparing(StudentDto::getGroupId, Comparator.nullsFirst(Long::compareTo))
-                                .thenComparing(StudentDto::getLastname)
-                )
-                .toList();
+        List<StudentDto> students = studentDtoService.findAll();
         model.addAttribute("students", students);
         return "students-list-page.html";
     }
 
     @GetMapping("/{id}")
     public String getStudentPage(@PathVariable Long id, Model model) {
-        Optional<StudentDto> optionalStudent = studentDtoService.findById(id);
+        Optional<StudentDto> optionalStudent = studentDtoService.getDtoById(id);
         if (optionalStudent.isEmpty()) {
             return "not-found.html";
         }
@@ -47,7 +39,7 @@ public class StudentDtoController {
 
     @GetMapping("/edit/{id}")
     public String showEditStudentForm(@PathVariable Long id, Model model) {
-        Optional<StudentDto> optionalStudent = studentDtoService.findById(id);
+        Optional<StudentDto> optionalStudent = studentDtoService.getDtoById(id);
         if (optionalStudent.isEmpty()) {
             return "not-found.html";
         }

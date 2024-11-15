@@ -8,8 +8,8 @@ import ru.sspo.client.GroupResponse;
 import ru.sspo.client.StudentResponse;
 import ru.sspo.dto.StudentDto;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -22,17 +22,27 @@ public class StudentDtoService {
     }
 
     public List<StudentDto> findAll() {
-        List<StudentResponse> studentResponses = restClient.get()
-                .uri("/students")
-                .retrieve()
-                .body(new ParameterizedTypeReference<>() {
-                });
-        return Objects.requireNonNull(studentResponses).stream().map(studentResponse ->
-                StudentDto.fromResponse(studentResponse, getGroupResponse(studentResponse))
-        ).toList();
+        try {
+            List<StudentResponse> studentResponseList = restClient.get()
+                    .uri("/students")
+                    .retrieve()
+                    .body(new ParameterizedTypeReference<>() {
+                    });
+            if (studentResponseList == null) {
+                throw new RuntimeException("Something went wrong...");
+            }
+            return studentResponseList.stream().map(studentResponse ->
+                            StudentDto.fromResponse(studentResponse, findGroupResponse(studentResponse))
+                    )
+                    .sorted(Comparator.comparing(StudentDto::getGroupName, Comparator.nullsLast(String::compareTo))
+                            .thenComparing(StudentDto::getLastname))
+                    .toList();
+        } catch (HttpServerErrorException e) {
+            throw new RuntimeException("Something went wrong...");
+        }
     }
 
-    public Optional<StudentDto> findById(Long id) {
+    private Optional<StudentResponse> findResponseById(Long id) {
         try {
             StudentResponse studentResponse = restClient.get()
                     .uri("students/" + id)
@@ -41,14 +51,22 @@ public class StudentDtoService {
             if (studentResponse == null) {
                 return Optional.empty();
             }
-            GroupResponse groupResponse = getGroupResponse(studentResponse);
-            return Optional.of(StudentDto.fromResponse(studentResponse, groupResponse));
+            return Optional.of(studentResponse);
         } catch (HttpServerErrorException e) {
             return Optional.empty();
         }
     }
 
-    private GroupResponse getGroupResponse(StudentResponse studentResponse) {
+    public Optional<StudentDto> getDtoById(Long id) {
+        if (findResponseById(id).isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(
+                StudentDto.fromResponse(findResponseById(id).get(), findGroupResponse(findResponseById(id).get()))
+        );
+    }
+
+    private GroupResponse findGroupResponse(StudentResponse studentResponse) {
         if (studentResponse.getGroupId() != null) {
             return restClient.get()
                     .uri("groups/" + studentResponse.getGroupId())
@@ -69,5 +87,25 @@ public class StudentDtoService {
         restClient.delete()
                 .uri("/students/" + id)
                 .retrieve();
+    }
+
+    public void addStudentToGroup(Long studentId, Long groupId) {
+        Optional<StudentResponse> responseOptional = findResponseById(studentId);
+        if (responseOptional.isEmpty()) {
+            throw new RuntimeException("Something went wrong...");
+        }
+        StudentResponse studentResponse = responseOptional.get();
+        studentResponse.setGroupId(groupId);
+        save(studentResponse);
+    }
+
+    public void removeStudentFromGroup(Long id) {
+        Optional<StudentResponse> responseOptional = findResponseById(id);
+        if (responseOptional.isEmpty()) {
+            throw new RuntimeException("Something went wrong...");
+        }
+        StudentResponse studentResponse = responseOptional.get();
+        studentResponse.setGroupId(null);
+        save(studentResponse);
     }
 }
