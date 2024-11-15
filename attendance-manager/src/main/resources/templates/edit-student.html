@@ -59,7 +59,7 @@
             background-color: #0056b3;
         }
         .delete-button {
-            background-color: #dc3545; /* Красный цвет для кнопки удаления */
+            background-color: #dc3545;
         }
         .delete-button:hover {
             background-color: #c82333;
@@ -114,12 +114,12 @@
             </tr>
             </tbody>
         </table>
-    </form>
 
-    <div class="buttons-group">
-        <button type="submit" class="button">Save</button>
-        <button type="button" class="button" th:onclick="'window.location.href=\'/students/' + ${student.id} + '\''">Cancel</button>
-    </div>
+        <div class="buttons-group">
+            <button type="submit" class="button">Save</button>
+            <button type="button" class="button" th:onclick="'window.location.href=\'/students/' + ${student.id} + '\''">Cancel</button>
+        </div>
+    </form>
 
     <form action="#" th:action="@{/students/delete/{id}(id=${student.id})}" method="post" style="display:inline;">
         <input type="hidden" name="_method" value="delete" />

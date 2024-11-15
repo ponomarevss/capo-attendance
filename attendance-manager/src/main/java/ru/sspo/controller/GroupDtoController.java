@@ -53,7 +53,7 @@ public class GroupDtoController {
                 allStudents
                         .stream()
                         .sorted(
-                                Comparator.comparing(StudentDto::getGroupName)
+                                Comparator.comparing(StudentDto::getGroupName, Comparator.nullsFirst(String::compareTo))
                                         .thenComparing(StudentDto::getLastname)
                         )
                         .toList()
@@ -63,15 +63,26 @@ public class GroupDtoController {
 
     @GetMapping("/create")
     public String showCreateGroupForm(Model model) {
-        GroupDto groupDto = new GroupDto();
-        model.addAttribute("group", groupDto);
+        model.addAttribute("group", new GroupDto());
         return "create-group.html";
     }
 
     @PostMapping("/update")
     public String updateGroup(@ModelAttribute GroupDto groupDto) {
-        System.out.println("updateGroup: " + groupDto);
         groupDtoService.save(GroupDto.toResponse(groupDto));
+        return "redirect:/groups";
+    }
+
+    @PostMapping("/save")
+    public String createGroup(@ModelAttribute GroupDto groupDto) {
+        groupDtoService.save(GroupDto.toResponse(groupDto));
+        return "redirect:/groups";
+    }
+
+
+    @PostMapping("/delete/{id}")
+    public String deleteGroup(@PathVariable Long id) {
+        groupDtoService.deleteById(id);
         return "redirect:/groups";
     }
 

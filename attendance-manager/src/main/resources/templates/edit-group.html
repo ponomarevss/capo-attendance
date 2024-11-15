@@ -125,16 +125,16 @@
             </tr>
             <tr>
                 <th>Description:</th>
-                <td><textarea th:field="*{description}"></textarea></td>
+                <td><textarea th:field="*{description}" required></textarea></td>
             </tr>
             </tbody>
         </table>
-    </form>
 
-    <div class="buttons-group">
-        <button type="submit" class="button">Save</button>
-        <button type="button" class="button" th:onclick="'window.location.href=\'/groups/' + ${group.id} + '\''">Cancel</button>
-    </div>
+        <div class="buttons-group">
+            <button type="submit" class="button">Save</button>
+            <button type="button" class="button" th:onclick="'window.location.href=\'/groups/' + ${group.id} + '\''">Cancel</button>
+        </div>
+    </form>
 
     <div class="student-list-container" style="display: flex; justify-content: space-between; height: 50vh; overflow: hidden;">
         <div style="flex: 1; margin-right: 20px; overflow-y: auto; max-height: 100%;">

@@ -65,4 +65,10 @@ public class GroupDtoService {
                 .retrieve();
     }
 
+    public void deleteById(Long id) {
+        restClient.delete()
+                .uri("/groups/" + id)
+                .retrieve();
+    }
+
 }

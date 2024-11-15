@@ -27,7 +27,7 @@ public class StudentDtoController {
         List<StudentDto> students = studentDtoService.findAll()
                 .stream()
                 .sorted(
-                        Comparator.comparing(StudentDto::getGroupId, Comparator.nullsLast(Long::compareTo))
+                        Comparator.comparing(StudentDto::getGroupId, Comparator.nullsFirst(Long::compareTo))
                                 .thenComparing(StudentDto::getLastname)
                 )
                 .toList();
