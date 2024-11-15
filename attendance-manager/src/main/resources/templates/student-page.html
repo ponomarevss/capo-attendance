@@ -95,9 +95,8 @@
         </tbody>
     </table>
 
-    <a th:href="@{/students/edit/{id}(id=${student.id})}" class="button">Edit</a>
-
     <a href="/students" th:href="@{/students}" class="button">Back</a>
+    <a th:href="@{/students/edit/{id}(id=${student.id})}" class="button">Edit Student</a>
 </div>
 </body>
 </html>

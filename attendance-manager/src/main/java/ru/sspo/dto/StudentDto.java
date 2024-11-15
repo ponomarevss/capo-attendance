@@ -6,6 +6,7 @@ import ru.sspo.client.GroupResponse;
 import ru.sspo.client.StudentResponse;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 
 @Data
 public class StudentDto {
@@ -36,7 +37,7 @@ public class StudentDto {
         StudentResponse studentResponse = new StudentResponse();
         studentResponse.setId(studentDto.getId());
         studentResponse.setFirstname(studentDto.getFirstname());
-        studentResponse.setLastname(studentResponse.getLastname());
+        studentResponse.setLastname(studentDto.getLastname());
         studentResponse.setBirthday(studentDto.getBirthday());
         studentResponse.setGrade(studentDto.getGrade());
         studentResponse.setGroupId(studentDto.getGroupId());

@@ -26,7 +26,10 @@ public class StudentDtoController {
     public String getStudentsListPage(Model model) {
         List<StudentDto> students = studentDtoService.findAll()
                 .stream()
-                .sorted(Comparator.comparing(StudentDto::getGroupId).thenComparing(StudentDto::getLastname))
+                .sorted(
+                        Comparator.comparing(StudentDto::getGroupId, Comparator.nullsLast(Long::compareTo))
+                                .thenComparing(StudentDto::getLastname)
+                )
                 .toList();
         model.addAttribute("students", students);
         return "students-list-page.html";
@@ -62,6 +65,12 @@ public class StudentDtoController {
 
     @PostMapping("/update")
     public String updateStudent(@ModelAttribute StudentResponse student) {
+        studentDtoService.save(student);
+        return "redirect:/students";
+    }
+
+    @PostMapping("/save")
+    public String createStudent(@ModelAttribute StudentResponse student) {
         studentDtoService.save(student);
         return "redirect:/students";
     }

@@ -22,4 +22,13 @@ public class GroupDto {
         groupDto.setStudents(studentDtoList);
         return groupDto;
     }
+
+    public static GroupResponse toResponse(GroupDto groupDto) {
+        GroupResponse groupResponse = new GroupResponse();
+        groupResponse.setId(groupDto.getId());
+        groupResponse.setName(groupDto.getName());
+        groupResponse.setAddress(groupDto.getAddress());
+        groupResponse.setDescription(groupDto.getDescription());
+        return groupResponse;
+    }
 }

@@ -57,4 +57,12 @@ public class GroupDtoService {
                 .body(new ParameterizedTypeReference<>() {
                 });
     }
+
+    public void save(GroupResponse group) {
+        restClient.post()
+                .uri("/groups")
+                .body(group)
+                .retrieve();
+    }
+
 }

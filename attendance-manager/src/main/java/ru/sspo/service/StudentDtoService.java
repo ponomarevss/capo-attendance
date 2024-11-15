@@ -59,7 +59,6 @@ public class StudentDtoService {
     }
 
     public void save(StudentResponse student) {
-//        System.out.println("save: " + student);
         restClient.post()
                 .uri("/students")
                 .body(student)
