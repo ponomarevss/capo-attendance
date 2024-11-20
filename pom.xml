@@ -24,6 +24,7 @@
 	<modules>
 		<module>attendance-rest</module>
         <module>attendance-manager</module>
+        <module>logging-starter</module>
     </modules>
 	<scm>
 		<connection/>

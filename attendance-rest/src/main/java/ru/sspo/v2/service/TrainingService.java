@@ -2,6 +2,7 @@ package ru.sspo.v2.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.sspo.aspect.logging.Logging;
 import ru.sspo.v2.model.Attendance;
 import ru.sspo.v2.model.Training;
 import ru.sspo.v2.repository.AttendanceRepository;
@@ -14,6 +15,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Logging
 public class TrainingService {
 
     private final TrainingRepository trainingRepository;

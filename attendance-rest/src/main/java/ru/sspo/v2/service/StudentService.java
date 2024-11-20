@@ -3,6 +3,7 @@ package ru.sspo.v2.service;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+import ru.sspo.aspect.logging.Logging;
 import ru.sspo.v2.model.Attendance;
 import ru.sspo.v2.model.Student;
 import ru.sspo.v2.repository.AttendanceRepository;
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Logging
 public class StudentService {
 
     public static final long YEARS_TO_SUBTRACT = 6L;

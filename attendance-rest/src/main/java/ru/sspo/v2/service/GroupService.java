@@ -3,6 +3,7 @@ package ru.sspo.v2.service;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+import ru.sspo.aspect.logging.Logging;
 import ru.sspo.v2.model.Group;
 import ru.sspo.v2.model.Student;
 import ru.sspo.v2.repository.GroupRepository;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Logging
 public class GroupService {
 
     private final GroupRepository groupRepository;
