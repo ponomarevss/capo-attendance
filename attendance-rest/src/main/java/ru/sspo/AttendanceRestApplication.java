@@ -3,19 +3,42 @@ package ru.sspo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
+import ru.sspo.v2.controller.GroupController;
+import ru.sspo.v2.controller.StudentController;
+import ru.sspo.v2.model.Group;
+import ru.sspo.v2.model.Student;
+
+import java.util.List;
+import java.util.Random;
 
 @SpringBootApplication
 public class AttendanceRestApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(AttendanceRestApplication.class, args);
 
+        // region Создание сущностей
 //        Initializer.initializeStudents(context);
 //        Initializer.initializeGroups(context);
+        // endregion
 
-//      так переписывается студент, ему добавляется группа
-//        StudentController controller = context.getBean(StudentController.class);
-//        Student student = controller.getById(66L).getBody();
-//        student.setGroupId(2L);
-//        controller.create(student);
+        // region Распределение студентов по случайным группам
+//        StudentController studentController = context.getBean(StudentController.class);
+//        GroupController groupController = context.getBean(GroupController.class);
+//        List<Student> students = studentController.getAll().getBody();
+//        List<Group> groups = groupController.getAll().getBody();
+//
+//        students.forEach(student -> {
+//                    student.setGroupId(groups.get(new Random().nextInt(groups.size())).getId());
+//                    studentController.create(student);
+//                }
+//        );
+        // endregion
+
+        // region Удаление группы
+//        GroupController groupController = context.getBean(GroupController.class);
+//        List<Group> groups = groupController.getAll().getBody();
+//        Group group = groups.get(new Random().nextInt(groups.size()));
+//        groupController.delete(group.getId());
+        // endregion
     }
 }

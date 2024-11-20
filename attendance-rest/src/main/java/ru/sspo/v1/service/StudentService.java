@@ -1,10 +1,10 @@
-package ru.sspo.service;
+package ru.sspo.v1.service;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
-import ru.sspo.model.Student;
-import ru.sspo.repository.StudentRepository;
+import ru.sspo.v1.model.Student;
+import ru.sspo.v1.repository.StudentRepository;
 
 import java.time.LocalDate;
 import java.util.List;

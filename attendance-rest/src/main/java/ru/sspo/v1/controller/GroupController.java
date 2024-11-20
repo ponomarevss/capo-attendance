@@ -1,12 +1,12 @@
-package ru.sspo.controller;
+package ru.sspo.v1.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.sspo.model.Group;
-import ru.sspo.model.Student;
-import ru.sspo.service.GroupService;
+import ru.sspo.v1.model.Group;
+import ru.sspo.v1.model.Student;
+import ru.sspo.v1.service.GroupService;
 
 import java.util.List;
 import java.util.NoSuchElementException;

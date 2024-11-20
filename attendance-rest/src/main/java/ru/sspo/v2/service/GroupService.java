@@ -1,12 +1,12 @@
-package ru.sspo.service;
+package ru.sspo.v2.service;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
-import ru.sspo.model.Group;
-import ru.sspo.model.Student;
-import ru.sspo.repository.GroupRepository;
-import ru.sspo.repository.StudentRepository;
+import ru.sspo.v2.model.Group;
+import ru.sspo.v2.model.Student;
+import ru.sspo.v2.repository.GroupRepository;
+import ru.sspo.v2.repository.StudentRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -29,29 +29,36 @@ public class GroupService {
     }
 
     public Group create(@NotNull Group group) {
-        String name = group.getName();
-        String description = group.getDescription();
-
-        if (Objects.isNull(name) || name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be null or empty.");
-        }
-        if (Objects.isNull(description) || description.isEmpty()) {
-            throw new IllegalArgumentException("Description cannot be null or empty.");
-        }
+        validateGroup(group.getName(), group.getDescription());
         return groupRepository.save(group);
     }
 
-    public void delete(Long id) {
-        if (groupRepository.findById(id).isEmpty()) {
-            throw new NoSuchElementException("Group with id = " + id + " does not exist.");
+    private static void validateGroup(String name, String description) {
+        if (isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("Name cannot be null or empty.");
         }
+        if (isNullOrEmpty(description)) {
+            throw new IllegalArgumentException("Description cannot be null or empty.");
+        }
+    }
+
+    private static boolean isNullOrEmpty(String s) {
+        return Objects.isNull(s) || s.isEmpty();
+    }
+
+    public void delete(Long id) {
+        groupRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("Group with id = " + id + " does not exist."));
+        studentRepository.findByGroupId(id).forEach(student -> {
+            student.setGroupId(null);
+            studentRepository.save(student);
+        });
         groupRepository.deleteById(id);
     }
 
     public List<Student> findStudents(Long id) {
-        if (groupRepository.findById(id).isEmpty()) {
-            throw new NoSuchElementException("Group with id = " + id + " does not exist.");
-        }
+        groupRepository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("Group with id = " + id + " does not exist."));
         return studentRepository.findByGroupId(id);
     }
 }

@@ -1,4 +1,4 @@
-package ru.sspo.model;
+package ru.sspo.v1.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
