@@ -2,6 +2,7 @@ package ru.sspo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
 import ru.sspo.v2.controller.GroupController;
 import ru.sspo.v2.controller.StudentController;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 @SpringBootApplication
+@EnableDiscoveryClient
 public class AttendanceRestApplication {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(AttendanceRestApplication.class, args);

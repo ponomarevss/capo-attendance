@@ -1,5 +1,7 @@
 package ru.sspo.service;
 
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
@@ -9,22 +11,20 @@ import ru.sspo.client.StudentResponse;
 import ru.sspo.dto.GroupDto;
 import ru.sspo.dto.StudentDto;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public class GroupDtoService {
+public class GroupDtoService extends BaseDtoService{
 
-    private final RestClient restClient;
-
-    public GroupDtoService() {
-        restClient = RestClient.create("http://localhost:8010");
+    public GroupDtoService(DiscoveryClient discoveryClient) {
+        super(discoveryClient);
     }
 
     public List<GroupDto> findAll() {
-        return restClient.get()
+        return restClient().get()
                 .uri("/groups")
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -33,7 +33,7 @@ public class GroupDtoService {
 
     public Optional<GroupDto> findById(Long id) {
         try {
-            GroupResponse groupResponse = restClient.get()
+            GroupResponse groupResponse = restClient().get()
                     .uri("groups/" + id)
                     .retrieve()
                     .body(GroupResponse.class);
@@ -52,7 +52,7 @@ public class GroupDtoService {
     }
 
     private List<StudentResponse> getStudentsForGroup(Long id) {
-        return restClient.get()
+        return restClient().get()
                 .uri("groups/" + id + "/students")
                 .retrieve()
                 .body(new ParameterizedTypeReference<>() {
@@ -60,14 +60,14 @@ public class GroupDtoService {
     }
 
     public void save(GroupResponse group) {
-        restClient.post()
+        restClient().post()
                 .uri("/groups")
                 .body(group)
                 .retrieve();
     }
 
     public void deleteById(Long id) {
-        restClient.delete()
+        restClient().delete()
                 .uri("/groups/" + id)
                 .retrieve();
     }

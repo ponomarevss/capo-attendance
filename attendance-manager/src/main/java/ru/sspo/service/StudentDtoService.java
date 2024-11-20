@@ -1,5 +1,7 @@
 package ru.sspo.service;
 
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
@@ -11,19 +13,18 @@ import ru.sspo.dto.StudentDto;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public class StudentDtoService {
+public class StudentDtoService extends BaseDtoService{
 
-    private final RestClient restClient;
-
-    public StudentDtoService() {
-        restClient = RestClient.create("http://localhost:8010");
+    public StudentDtoService(DiscoveryClient discoveryClient) {
+        super(discoveryClient);
     }
 
     public List<StudentDto> findAll() {
         try {
-            List<StudentResponse> studentResponseList = restClient.get()
+            List<StudentResponse> studentResponseList = restClient().get()
                     .uri("/students")
                     .retrieve()
                     .body(new ParameterizedTypeReference<>() {
@@ -44,7 +45,7 @@ public class StudentDtoService {
 
     private Optional<StudentResponse> findResponseById(Long id) {
         try {
-            StudentResponse studentResponse = restClient.get()
+            StudentResponse studentResponse = restClient().get()
                     .uri("students/" + id)
                     .retrieve()
                     .body(StudentResponse.class);
@@ -68,7 +69,7 @@ public class StudentDtoService {
 
     private GroupResponse findGroupResponse(StudentResponse studentResponse) {
         if (studentResponse.getGroupId() != null) {
-            return restClient.get()
+            return restClient().get()
                     .uri("groups/" + studentResponse.getGroupId())
                     .retrieve()
                     .body(GroupResponse.class);
@@ -77,14 +78,14 @@ public class StudentDtoService {
     }
 
     public void save(StudentResponse student) {
-        restClient.post()
+        restClient().post()
                 .uri("/students")
                 .body(student)
                 .retrieve();
     }
 
     public void deleteById(Long id) {
-        restClient.delete()
+        restClient().delete()
                 .uri("/students/" + id)
                 .retrieve();
     }
