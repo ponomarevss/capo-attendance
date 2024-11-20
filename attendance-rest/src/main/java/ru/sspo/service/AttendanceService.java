@@ -1,12 +1,12 @@
-package ru.sspo.v2.service;
+package ru.sspo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.sspo.aspect.logging.Logging;
-import ru.sspo.v2.model.Attendance;
-import ru.sspo.v2.repository.AttendanceRepository;
-import ru.sspo.v2.repository.StudentRepository;
-import ru.sspo.v2.repository.TrainingRepository;
+import ru.sspo.model.Attendance;
+import ru.sspo.repository.AttendanceRepository;
+import ru.sspo.repository.StudentRepository;
+import ru.sspo.repository.TrainingRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;

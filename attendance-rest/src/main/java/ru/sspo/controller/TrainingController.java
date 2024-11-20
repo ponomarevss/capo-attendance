@@ -1,13 +1,12 @@
-package ru.sspo.v2.controller;
+package ru.sspo.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.sspo.v2.model.Attendance;
-import ru.sspo.v2.model.Training;
-import ru.sspo.v2.service.TrainingService;
+import ru.sspo.model.Attendance;
+import ru.sspo.model.Training;
+import ru.sspo.service.TrainingService;
 
 import java.util.List;
 import java.util.NoSuchElementException;

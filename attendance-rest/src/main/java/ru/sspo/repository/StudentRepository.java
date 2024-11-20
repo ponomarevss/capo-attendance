@@ -1,7 +1,7 @@
-package ru.sspo.v2.repository;
+package ru.sspo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.sspo.v2.model.Student;
+import ru.sspo.model.Student;
 
 import java.util.List;
 

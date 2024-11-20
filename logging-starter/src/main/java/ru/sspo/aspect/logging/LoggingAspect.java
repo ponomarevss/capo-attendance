@@ -24,7 +24,7 @@ public class LoggingAspect {
             Object[] args = joinPoint.getArgs();
             MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
             log.atInfo().log(
-                    "Args types and values of {}#{} -> {}",
+                    "{}#{} -> {}",
                     methodSignature.getDeclaringTypeName(),
                     methodSignature.getName(),
                     argsToString(args)

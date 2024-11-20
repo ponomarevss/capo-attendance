@@ -4,13 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
-import ru.sspo.v2.controller.GroupController;
-import ru.sspo.v2.controller.StudentController;
-import ru.sspo.v2.model.Group;
-import ru.sspo.v2.model.Student;
-
-import java.util.List;
-import java.util.Random;
 
 @SpringBootApplication
 @EnableDiscoveryClient

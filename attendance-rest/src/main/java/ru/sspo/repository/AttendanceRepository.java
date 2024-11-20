@@ -1,7 +1,7 @@
-package ru.sspo.v2.repository;
+package ru.sspo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.sspo.v2.model.Attendance;
+import ru.sspo.model.Attendance;
 
 import java.util.List;
 

@@ -2,10 +2,10 @@ package ru.sspo;
 
 import com.github.javafaker.Faker;
 import org.springframework.context.ConfigurableApplicationContext;
-import ru.sspo.v2.model.Group;
-import ru.sspo.v2.model.Student;
-import ru.sspo.v2.service.GroupService;
-import ru.sspo.v2.service.StudentService;
+import ru.sspo.model.Group;
+import ru.sspo.model.Student;
+import ru.sspo.service.GroupService;
+import ru.sspo.service.StudentService;
 
 import java.time.ZoneId;
 

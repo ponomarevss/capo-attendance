@@ -1,13 +1,13 @@
-package ru.sspo.v2.service;
+package ru.sspo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import ru.sspo.aspect.logging.Logging;
-import ru.sspo.v2.model.Attendance;
-import ru.sspo.v2.model.Student;
-import ru.sspo.v2.repository.AttendanceRepository;
-import ru.sspo.v2.repository.StudentRepository;
+import ru.sspo.model.Attendance;
+import ru.sspo.model.Student;
+import ru.sspo.repository.AttendanceRepository;
+import ru.sspo.repository.StudentRepository;
 
 import java.time.LocalDate;
 import java.util.List;

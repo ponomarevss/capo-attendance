@@ -1,11 +1,12 @@
-package ru.sspo.v1.controller;
+package ru.sspo.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.sspo.v1.model.Student;
-import ru.sspo.v1.service.StudentService;
+import ru.sspo.model.Attendance;
+import ru.sspo.model.Student;
+import ru.sspo.service.StudentService;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -38,5 +39,10 @@ public class StudentController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         studentService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/attendances")
+    public ResponseEntity<List<Attendance>> getAttendances(@PathVariable Long id) {
+        return ResponseEntity.ok(studentService.findAttendances(id));
     }
 }
