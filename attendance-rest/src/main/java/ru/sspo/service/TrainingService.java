@@ -30,10 +30,14 @@ public class TrainingService {
     }
 
     public Training create(Training training) {
+        validateTraining(training);
+        return trainingRepository.save(training);
+    }
+
+    private static void validateTraining(Training training) {
         if (Objects.isNull(training.getDatetime())) {
             throw new IllegalArgumentException("DateTime is null.");
         }
-        return trainingRepository.save(training);
     }
 
     public void delete(Long id) {

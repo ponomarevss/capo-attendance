@@ -19,8 +19,8 @@ public class AttendanceController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Attendance> getById(@PathVariable Long id) {
-        Attendance attendance = attendanceService.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Attendance not found"));
+        Attendance attendance = attendanceService.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Attendance not found"));
         return ResponseEntity.ok(attendance);
     }
 

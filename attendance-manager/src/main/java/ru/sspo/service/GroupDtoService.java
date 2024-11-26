@@ -1,11 +1,9 @@
 package ru.sspo.service;
 
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpServerErrorException;
-import org.springframework.web.client.RestClient;
 import ru.sspo.client.GroupResponse;
 import ru.sspo.client.StudentResponse;
 import ru.sspo.dto.GroupDto;
@@ -14,7 +12,6 @@ import ru.sspo.dto.StudentDto;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class GroupDtoService extends BaseDtoService{

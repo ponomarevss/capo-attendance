@@ -20,8 +20,8 @@ public class TrainingController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Training> getById(@PathVariable Long id) {
-        Training training = trainingService.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Training not found"));
+        Training training = trainingService.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Training not found"));
         return ResponseEntity.ok(training);
     }
 

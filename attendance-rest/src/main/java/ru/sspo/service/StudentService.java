@@ -33,18 +33,18 @@ public class StudentService {
     }
 
     public Student create(@NotNull Student student) {
-        validateStudent(student.getFirstname(), student.getLastname(), student.getBirthday());
+        validateStudent(student);
         return studentRepository.save(student);
     }
 
-    private static void validateStudent(String firstname, String lastname, LocalDate dateOfBirth) {
-        if (isNullOrEmpty(firstname)) {
+    private static void validateStudent(Student student) {
+        if (isNullOrEmpty(student.getFirstname())) {
             throw new IllegalArgumentException("Firstname cannot be null or empty.");
         }
-        if (isNullOrEmpty(lastname)) {
+        if (isNullOrEmpty(student.getLastname())) {
             throw new IllegalArgumentException("Lastname cannot be null or empty.");
         }
-        if (dateOfBirth.isAfter(LocalDate.now().minusYears(YEARS_TO_SUBTRACT))) {
+        if (student.getBirthday().isAfter(LocalDate.now().minusYears(YEARS_TO_SUBTRACT))) {
             throw new IllegalArgumentException("Student cannot be so young.");
         }
     }

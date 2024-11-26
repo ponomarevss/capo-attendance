@@ -32,15 +32,4 @@ public class StudentDto {
         }
         return studentDto;
     }
-
-    public static StudentResponse toResponse(StudentDto studentDto) {
-        StudentResponse studentResponse = new StudentResponse();
-        studentResponse.setId(studentDto.getId());
-        studentResponse.setFirstname(studentDto.getFirstname());
-        studentResponse.setLastname(studentDto.getLastname());
-        studentResponse.setBirthday(studentDto.getBirthday());
-        studentResponse.setGrade(studentDto.getGrade());
-        studentResponse.setGroupId(studentDto.getGroupId());
-        return studentResponse;
-    }
 }

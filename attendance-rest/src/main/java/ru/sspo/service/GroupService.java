@@ -31,15 +31,15 @@ public class GroupService {
     }
 
     public Group create(@NotNull Group group) {
-        validateGroup(group.getName(), group.getDescription());
+        validateGroup(group);
         return groupRepository.save(group);
     }
 
-    private static void validateGroup(String name, String description) {
-        if (isNullOrEmpty(name)) {
+    private static void validateGroup(Group group) {
+        if (isNullOrEmpty(group.getName())) {
             throw new IllegalArgumentException("Name cannot be null or empty.");
         }
-        if (isNullOrEmpty(description)) {
+        if (isNullOrEmpty(group.getDescription())) {
             throw new IllegalArgumentException("Description cannot be null or empty.");
         }
     }
@@ -49,8 +49,7 @@ public class GroupService {
     }
 
     public void delete(Long id) {
-        groupRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Group with id = " + id + " does not exist."));
+        checkGroupExists(id);
         studentRepository.findByGroupId(id).forEach(student -> {
             student.setGroupId(null);
             studentRepository.save(student);
@@ -59,8 +58,12 @@ public class GroupService {
     }
 
     public List<Student> findStudents(Long id) {
+        checkGroupExists(id);
+        return studentRepository.findByGroupId(id);
+    }
+
+    private void checkGroupExists(Long id) {
         groupRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("Group with id = " + id + " does not exist."));
-        return studentRepository.findByGroupId(id);
     }
 }
